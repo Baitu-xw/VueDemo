@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>主页</title>
+    <!--<link href="css/common.css" type="text/css" rel="stylesheet" />-->
+    <style type="text/css">
+        .fix-div {
+            position: fixed;
+            top: 0px;
+            width: 100%;
+        }
+    </style>
+    <script type="text/javascript" src="bundle.js"></script>
+    <!--<script type="text/javascript" src="js/fontsize.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>-->
+    <!--<script type="text/javascript">
+        var indexMethod = {
+            tabinit: function (id, cls) {
+                $(id).parent().removeClass('active');
+                $(id).first().parent().addClass('active');
+                $(cls + ':eq(' + 0 + ')').show();
+                //Method.tabswitchClick(id,cls);
+                $(id).click(function () {
+                    $(id).parent().removeClass('active');
+                    $(this).parent().addClass('active');
+
+                });
+                //indexMethod.swtichClass(id);
+            },
+            swtichClass: function (id) {
+                //var h = $("#SocialInsuranceTab").offset();
+                var h = $(id).scrollTop();
+                console.log(h);
+                if (h <= 0) {
+                    $(id).parent().removeClass('active');
+                    $(this).parent().addClass('active');
+                }
+            },
+
+
+        }
+    </script>-->
+</head>
+
+<body>
+    <div class="index-head">
+        <div class="weather">
+            <p class="date">2017-04-27</p>
+            <p class="week">星期四</p>
+            <p>18°C <img src="image/weather-icon.png" /></p>
+        </div>
+        <div class="index-head-nav clearfix">
+            <ul>
+                <li>
+                    <a href="my-transaction.html">
+                        <img src="image/index-headicon01.png" />
+                        <p>我的办件</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="my-payment.html">
+                        <img src="image/index-headicon02.png" />
+                        <p>我的支付</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="feedback.html">
+                        <img src="image/index-headicon03.png" />
+                        <p>咨询投诉</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="tab-bar" id="mainTab">
+        <ul>
+            <!--<li><a href="javascript:void(0)"><em></em>社保</a></li>
+              <li><a href="javascript:void(0)"><em></em>医疗</a></li>
+              <li><a href="javascript:void(0)"><em></em>交通</a></li>-->
+            <li><a href="#tab1" id="t1"><em></em>社保</a></li>
+            <li><a href="#tab2" id="t2"><em></em>医疗</a></li>
+            <li><a href="#tab3" id="t3"><em></em>交通</a></li>
+        </ul>
+    </div>
+    <div class="tab-content" id="tab1">
+        <section class="nav-box">
+            <div class="nav-list clearfix">
+                <ul>
+                    <li>
+                        <a href="#"><img src="image/social-services-icon01.png" />挂失/解挂</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="image/social-services-icon02.png" />信息变更</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="image/social-services-icon03.png" />个人参保</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="image/social-services-icon04.png" />中断参保</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="image/social-services-icon05.png" />社保证明</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="image/social-services-icon06.png" />亲情社保</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <div class="tab-content" id="tab2">
+        <section class="nav-box">
+            <div class="common-title">医疗</div>
+            <div class="nav-list clearfix">
+                <ul>
+                    <li>
+                        <a href="#"><img src="image/medical-treatment-icon01.png" />预约挂号</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="image/medical-treatment-icon02.png" />预约检查</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="image/medical-treatment-icon03.png" />家庭共济</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <div class="tab-content" id="tab3">
+        <section class="nav-box">
+            <div class="common-title">交通</div>
+            <div class="nav-list clearfix">
+                <ul>
+                    <li>
+                        <a href="#"><img src="image/traffic-icon01.png" />科目一练习</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="image/traffic-icon02.png" />安全常识练习</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="image/traffic-icon03.png" />科目一模拟考试</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="image/traffic-icon04.png" />安全常识模拟考试</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="image/traffic-icon05.png" />减分学习</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="image/traffic-icon06.png" />违法处理</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="image/traffic-icon04.png" />安全常识模拟考试</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="image/traffic-icon05.png" />减分学习</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="image/traffic-icon06.png" />违法处理</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="image/traffic-icon04.png" />安全常识模拟考试</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="image/traffic-icon05.png" />减分学习</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="image/traffic-icon06.png" />违法处理</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    <div style="height:300px;">
+
+    </div>
+    <!--<script type="text/javascript">
+        //    var indexMethod = {
+        //         menuFixed:function(id){
+        //         var obj = document.getElementById(id);
+        //         console.log(obj);
+        //         var _getHeight = obj.offsetTop;
+        //         console.log("高度"+_getHeight);
+        //         window.onscroll = function(){
+        //         indexMethod.changePos(id,_getHeight-500);
+        //         }
+        //     },
+        //      changePos:function(id,height){
+        //         var obj = document.getElementById(id);
+        //         console.log("2"+"__"+obj);
+        //         var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        //         if(scrollTop < height){
+        //         obj.style.position = 'relative';
+        //         }
+        //         else{
+        //             obj.style.position = 'fixed';
+        //         }
+        //     }
+        //    };
+        $.fn.fixedDiv = function (actCls) {
+            var pos = 0,
+                that = $(this),
+                //初始高度
+                topVal;
+            console.log(that);
+            if (that.length > 0) {
+                //
+                topVal = that.offset().top;
+                console.log("topValue" + topVal);
+            }
+
+            function fix() {
+                //获取当前文档高度
+                pos = $(document).scrollTop();
+                console.log("pos" + pos);
+                if (pos > 212) {
+                    mTop = $('.tab-content')[2].offsetTop;
+                    sTop = $(window).scrollTop();
+                    result = mTop - sTop;
+                    console.log("result" + result);
+                    // if (result < 200) {
+                    //     $("#t1").parent().removeClass('active');
+                    //     $("#t3").parent().removeClass('active');
+                    //     $("#t2").parent().addClass('active');
+                    // }
+                    if (result > 280) {
+                        $("#t1").parent().addClass('active');
+                        $("#t2").parent().removeClass('active');
+                        $("#t3").parent().removeClass('active');
+                    }
+                    if (150 < result && result < 280) {
+                        $("#t1").parent().removeClass('active');
+                        $("#t2").parent().addClass('active');
+                        $("#t3").parent().removeClass('active');
+                    }
+                     
+                    if (result < 200) {
+                        $("#t1").parent().removeClass('active');
+                        $("#t2").parent().removeClass('active');
+                        $("#t3").parent().addClass('active');
+                     }
+                    that.addClass(actCls);
+                    if (!window.XMLHttpRequest) {
+                        that.css({
+                            position: 'absolute',
+                            top: pos
+                        });
+                    }
+                } else {
+                    that.removeClass(actCls);
+                    if (!window.XMLHttpRequest) {
+                        that.css({
+                            position: 'static',
+                            top: 'auto'
+                        });
+                    }
+
+                }
+            }
+            fix();
+
+            $(window).scroll(fix);
+        }
+    </script>-->
+
+    <!--<script src="js/nav.js"></script>-->
+    <script>
+        // $(function () {
+        //     // indexMethod.tabinit('.tab-bar a', '.tab-content');
+
+        //     // //indexMethod.menuFixed('mainTab');
+        //     // $('#mainTab').fixedDiv('fix-div');
+
+        // });
+        window.onload = function () {
+            var navFix = $(".tab-bar");
+            var navHeight = navFix.offset().top;
+            $(window).scroll(function () {
+                //console.log($(this).scrollTop());
+
+                //console.log($(this).scrollTop());
+                //console.log($('.index-head').height());
+                if ($(this).scrollTop() >= navHeight) {
+                    navFix.addClass("fix-div");
+                }
+                else {
+                    navFix.removeClass("fix-div");
+                }
+            });
+            //内容信息导航锚点
+            $('#mainTab').navScroll({
+                mobileDropdown: true,
+                mobileBreakpoint: 768,
+                scrollSpy: true
+            });
+        }
+    </script>
+
+
+
+</body>
+
+</html>

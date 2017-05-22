@@ -1,0 +1,146 @@
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>iview example</title>
+    <link rel="stylesheet" type="text/css" href="http://unpkg.com/iview/dist/styles/iview.css">
+
+</head>
+<body>
+    <div id="app">
+        <i-button @click="show">Click me!</i-button>
+        <Modal v-model="visible" title="Welcome">欢迎使用 iView</Modal>
+    </div>
+    <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
+    <script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
+    <script>
+        new Vue( {
+            el: '#app',
+            data: {
+                visible: false
+            },
+            methods: {
+                show: function ()
+                {
+                    this.visible = true;
+                }
+            }
+        })
+    </script>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>iview example</title>
+    <link rel="stylesheet" type="text/css" href="iView/iview.css">
+    <link rel="stylesheet" type="text/css" href="iView/fonts/iconfont.css">
+
+</head>
+
+<body>
+    <div id="app">
+        <!--<tab-template>
+        
+    </tab-template>
+
+    <tree-template :base-data="baseData">
+
+    </tree-template>-->
+
+        <message-template v-on:load-entry="instance1">
+
+        </message-template>
+        <Modal v-model="modal1" title="普通的Modal对话框标题" @on-ok="ok" @on-cancel="cancel">
+            <p>对话框内容</p>
+            <p>对话框内容</p>
+            <p>对话框内容</p>
+        </Modal>
+    </div>
+    <template id="tab-temp">
+        <Tabs value="name1">
+            <Tab-pane label="我是" name="name1">你好</Tab-pane>
+            <Tab-pane label="博主" name="name2">我是</Tab-pane>
+            <Tab-pane label="秋意正寒" name="name3">秋意正寒</Tab-pane>
+        </Tabs>
+    </template>
+    <template id="tree-temp">
+        <Tree :data="baseData" show-checkbox></Tree>
+    </template>
+
+    <template id="message-temp">
+        <Button @click="loadEntry(true)">消息</Button>
+    </template>
+    <template>
+
+    </template>
+
+    <script type="text/javascript" src="iView/vue2.0.js"></script>
+    <script type="text/javascript" src="iView/iview.min.js"></script>
+    <script>
+        Vue.component("tab-template", {
+            template: "#tab-temp"
+        });
+        Vue.component("tree-template", {
+            template: "#tree-temp",
+            props: ["baseData"]
+        });
+
+        Vue.component("message-template", {
+            template: "#message-temp",
+            props: ["modal1"],
+            methods: {
+                loadEntry: function (key) {
+                    this.$emit('load-entry', key)
+                },
+                
+            }
+        })
+    </script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                baseData: [{
+                    expand: true,
+                    title: 'parent 1',
+                    children: [{
+                        title: 'parent 1-0',
+                        expand: true,
+                        disabled: true,
+                        children: [{
+                            title: 'leaf',
+                            disableCheckbox: true
+                        }, {
+                            title: 'leaf',
+                        }]
+                    }, {
+                        title: 'parent 1-1',
+                        expand: true,
+                        checked: true,
+                        children: [{
+                            title: '<span style="color: red">leaf</span>',
+                        }]
+                    }]
+                }],
+                modal1: false
+            },
+            methods: {
+                instance1(key) {
+                    alert(key);
+                    this.modal1 = key;
+                },
+                ok() {
+                    this.$Message.info('点击了确定');
+                },
+                cancel() {
+                    this.$Message.info('点击了取消');
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

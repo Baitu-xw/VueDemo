@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>菜单滚动至顶部后固定-柯乐义</title>
+<style type="text/css">
+.wrapper{width:1000px;height:2000px;margin-left:auto;margin-right:auto;}
+.header{height:150px;}
+#nav_keleyi_com{padding:10px;position:relative;top:0;background:#125430;width:1000px;}
+a{display:inline-block;margin:0 10px;*display:inline;zoom:1;color:white;}
+</style>
+</head>
+<body>
+<div class="wrapper">
+<div class="header"></div>
+<div id="nav_keleyi_com">
+<a href="http://keleyi.com/menu/net/" target="_blank">.NET</a>
+<a href="http://keleyi.com/menu/javascript/" target="_blank">Javascript</a>
+<a href="http://keleyi.com/menu/jquery/" target="_blank">jQuery</a>
+<a href="http://keleyi.com/menu/csharp/" target="_blank">C#</a>
+<a href="http://keleyi.com/menu/other/" target="_blank">其他</a>
+<a href="http://keleyi.com/" target="_blank">首页</a><a href="/menu/aspnet/" 
+
+target="_blank">ASP.NET</a> <a href="/menu/mvc/" target="_blank">MVC</a></div>
+</div>
+<script type="text/javascript" >
+function menuFixed(id){
+var obj = document.getElementById(id);
+var _getHeight = obj.offsetTop;
+
+window.onscroll = function(){
+changePos(id,_getHeight);
+}
+}
+function changePos(id,height){
+var obj = document.getElementById(id);
+var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+if(scrollTop < height){
+obj.style.position = 'relative';
+}else{
+obj.style.position = 'fixed';
+}
+}
+</script>
+<script type="text/javascript">
+window.onload = function(){
+menuFixed('nav_keleyi_com');
+}
+</script>
+</body>
+</html>
