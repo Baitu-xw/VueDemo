@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+    <div id="app">
+        {{ message }}
+    </div>
+
+    <div id="app-2">
+        <span v-bind:title="message">
+        鼠标悬停几秒钟查看此处动态绑定的提示信息！
+      </span>
+    </div>
+    <div id="app-3">
+        <p v-if="seen">现在你看到我了</p>
+    </div>
+
+    <div id="app-4">
+        <ol>
+            <li v-for="todo in todos">
+                {{ todo.text }}
+            </li>
+        </ol>
+    </div>
+
+
+    <div id="app-5">
+        <p>{{ message }}</p>
+        <button v-on:click="reverseMessage">逆转消息</button>
+    </div>
+
+    <div id="app-6">
+        <p>{{ message }}</p>
+        <input v-model="message">
+    </div>
+
+    <div id="app-7">
+        <ol>
+            <todo-item v-bind:todo="message"></todo-item>
+        </ol>
+    </div>
+    <div id="app-8">
+        <ol>
+            <!-- 现在我们为每个todo-item提供待办项对象    -->
+            <!-- 待办项对象是变量，即其内容可以是动态的 -->
+            <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
+        </ol>
+    </div>
+    <div id="mount-point"></div>
+
+    <div id="app-9">
+        <p>Old String:"{{ message }}"</p>
+        <p>new String:"{{ reverseMessage }}"</p>
+        
+    </div>
+    <div id="example">
+        <p>Original message: "{{ message }}"</p>
+        <p>Computed reversed message: "{{ reverseMessage }}"</p>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            message: 'Hello'
+        },
+        computed: {
+            // a computed getter
+            reversedMessage: function () {
+                // `this` points to the vm instance
+                return this.message.split('').reverse().join('')
+            }
+        }
+    });
+    var app9 = new Vue({
+        el: '#app-9',
+        data: {
+            message: 'Hello vue'
+        },
+        computed: {
+            reverseMessage: function () {
+                return this.message.split('').reverse().join('');
+            }
+        }
+    });
+    // 创建构造器
+    var Profile = Vue.extend({
+        template: '<p>{{firstName}} {{lastName}} aka {{alias}}</p>',
+        data: function () {
+            return {
+                firstName: 'Walter',
+                lastName: 'White',
+                alias: 'Heisenberg'
+            }
+        }
+    });
+    // 创建 Profile 实例，并挂载到一个元素上。
+    new Profile().$mount('#mount-point');
+
+    Vue.component('todo-item', {
+        props: ['todo'],
+        template: '<li>{{ todo.text }}</li>'//
+    });
+    var app8 = new Vue({
+        el: "#app-8",
+        data: {
+            groceryList: [
+                { text: '蔬菜' },
+                { text: '奶酪' },
+                { text: '水果' },
+                { text: '牛奶' },
+            ]
+        }
+    })
+
+    Vue.component('todo-item', {
+        props: ['todo'],
+        template: '<li>{{todo}}</li>'
+    });
+    var app7 = new Vue({
+        el: "#app-7",
+        data: {
+            message: "测试一把"
+        }
+    });
+    var app6 = new Vue({
+        el: "#app-6",
+        data: {
+            message: "hello vue"
+        }
+    });
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!'
+        }
+    });
+    var app2 = new Vue({
+        el: "#app-2",
+        data: {
+            message: "页面加载于" + new Date()
+        }
+    });
+    var app3 = new Vue({
+        el: "#app-3",
+        data: {
+            seen: false
+        }
+    });
+    var app4 = new Vue({
+        el: "#app-4",
+        data: {
+            todos: [
+                { text: '学习javascript' },
+                { text: '学习Vue' },
+                { text: '整个牛项目' }
+            ]
+        }
+    });
+    var app5 = new Vue({
+        el: "#app-5",
+        data: {
+            message: "hello world vue.js"
+        },
+        methods: {
+            reverseMessage: function () {
+                this.message = this.message.split(' ').reverse().join(' ');
+            }
+        }
+    });
+
+</script>
+
+</html>
