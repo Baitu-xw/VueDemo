@@ -1,0 +1,16 @@
+body {
+    background: yellow;
+}
+
+.tab-bar li.active em {
+	background: url(../image/tab-onbg.png) no-repeat center bottom;
+	background-size: 1.03rem 0.29rem;
+	width: 1.03rem;
+	height: 0.29rem;
+	position: absolute;
+	left: 50%;
+	margin-left: -0.5rem;
+	bottom: 0;
+	display: inline-block;
+	
+}
