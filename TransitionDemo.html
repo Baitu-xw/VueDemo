@@ -175,11 +175,9 @@
                 this.items.push({ msg: 'Bruce Lee1', show: false });
             },
             deleteShow(index) {
-                var isTrue = true;
-                this.items[index].show = isTrue;
+                this.items[index].show = true;
                 if (this.prevIndex > 0 || this.prevIndex == 0) {
-                    //isTrue = !isTrue;
-                    this.items[this.prevIndex].show = !isTrue;
+                    this.items[this.prevIndex].show = false;
                 }
 
                 this.prevIndex = index;
