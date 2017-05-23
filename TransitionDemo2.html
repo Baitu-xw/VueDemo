@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- 引入样式 -->
+    
+</head>
+
+<body>
+    <div id="app">
+        <button @click="showMenu" class="btn">{{text}}</button>
+         <transition name="move">
+            <div class="menu" v-show="show">
+                <div class="inner inner-1">1</div>
+            </div>
+        </transition>
+        <!--<transition name="move">
+            <div class="menu" v-show="show">
+                <div class="inner inner-1">1</div>
+                <div class="inner inner-2">2</div>
+                <div class="inner inner-3">3</div>
+            </div>
+        </transition>-->
+    </div>
+</body>
+<!-- 先引入 Vue -->
+<script type="text/javascript" src="iView/vue2.0.js"></script>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            show: false
+        },
+        methods: {
+            showMenu() {
+                this.show = !this.show;
+            }
+        },
+        computed: {
+            text() {
+                return this.show ? '收' : '开';
+            }
+        }
+    });
+
+</script>
+<style>
+#app{
+    margin-top:10px;
+}
+.btn{
+    position: fixed;
+    top:60px;
+    left:50%;
+    z-index:10;
+    width:50px;
+    height:50px;
+    line-height:50px;
+    border-radius: 50%;
+    border:none;
+    outline:none;
+    color:#fff;
+    font-size:18px;
+    background:orange;
+}
+.inner-1{
+    display: inline-block;
+    position:absolute;
+    width:30px;
+    height:30px;
+    line-height:30px;
+    border-radius:50%;
+    background: red;
+    text-align:center;
+    color:#fff;
+    transition:all 0.4s;
+    left:-50px;
+    top:20px;
+}
+.menu{
+    position:fixed;
+    top:60px;
+    left:50%;
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    transition:all 0.7s linear;
+}
+/*上面主要都是样式代码*/
+.move-enter-active > .inner-1{
+    transform: translate3d(0,0,0);
+}
+.move-enter > .inner-1,
+.move-leave-active >.inner-1{
+    transition-timing-function: ease-in-out ;
+    transform:translate3d(60px,0,0) ;
+}
+</style>
+</html>

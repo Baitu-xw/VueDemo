@@ -4,29 +4,119 @@
 <head>
     <meta charset="UTF-8">
     <!-- 引入样式 -->
-    
+
 </head>
 
 <body>
     <div id="app">
-        <button @click="showMenu" class="btn">{{text}}</button>
-        <transition name="move">
-            <div class="menu" v-show="show">
-                <div class="inner inner-1">1</div>
-                <div class="inner inner-2">2</div>
-                <div class="inner inner-3">3</div>
-            </div>
-        </transition>
+        <demo1-template>
+
+        </demo1-template>
+
+        <demo2-template>
+
+        </demo2-template>
+
+        <!--模板框架-->
+        <demo3-template>
+
+        </demo3-template>
+
+        <demo4-template>
+
+        </demo4-template>
+
+        <demo5-template>
+
+        </demo5-template>
     </div>
+    <!--组件模板的html-->
+    <template id="demo1-temp">
+        <div id="demo1">
+            <button @click="showMenu" class="btn">{{text}}</button>
+            <transition name="move">
+                <div class="menu" v-show="show">
+                    <div class="inner inner-1">1</div>
+                    <div class="inner inner-2">2</div>
+                    <div class="inner inner-3">3</div>
+                </div>
+            </transition>
+        </div>
+
+    </template>
+    <!--组件模板-->
+    <template id="demo2-temp">
+        <div id="movie">
+            <div class="radio">
+                <input type="radio" id="one" value="v-a" v-model="view">
+                <label for="one">A</label>
+                <input type="radio" id="two" value="v-b" v-model="view">
+                <label for="two">B</label>
+            </div>
+            <div class="show">
+                <transition name="component-fade" mode="out-in">
+                    <component v-bind:is="view"></component>
+                </transition>
+            </div>
+        </div>
+
+    </template>
+    <!--组件模板-->
+    <template id="demo3-temp">
+        <div>
+            <div id="list-demo" class="demo">
+                <button v-on:click="add" id='btn3'>Add</button>
+                <transition-group name="list" tag="ul">
+                    <!--key值为item-->
+                    <li v-for="(item,index) in items" :key="item" class="list-item" @click="deleteShow(index)">{{ item.msg }}
+                        <!--给删除按钮再加个动画-->
+                        <transition name="move3">
+                            <button class="deleteButton" v-show="item.show" @click="deleteItem(index)">删除</button>
+                        </transition>
+                    </li>
+                </transition-group>
+            </div>
+        </div>
+
+    </template>
+
+    <template id="demo4-temp">
+        <div class="app">
+            <button @click="showball" class="btn4">show</button>
+            <transition name="move4" type="animation">
+                <div class="ball" v-show="show">
+                    <div class="inner"></div>
+                </div>
+            </transition>
+        </div>
+    </template>
+
+    <template id="demo5-temp">
+        <div class="app5">
+            <div class="gun" @click="launch($event)"></div>
+            <div class="shells-wrapper">
+                <transition v-for="shell in shells" name="launch-shell" @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+                    <div class="shell" v-show="shell.show">
+                        <div class="inner5"></div>
+                    </div>
+                </transition>
+            </div>
+            <div class="goal"></div>
+        </div>
+    </template>
 </body>
 <!-- 先引入 Vue -->
 <script type="text/javascript" src="iView/vue2.0.js"></script>
 
 <script>
-    new Vue({
-        el: "#app",
-        data: {
-            show: false
+    //注册组件到vue实例中
+    Vue.component("demo1-template", {
+        template: "#demo1-temp",
+        //属性是为了与父组件进行传递数据的
+        //props: ["show"],
+        //每个组件都有父组件都有的属性以及方法
+        data() {
+            return { show: false }
         },
         methods: {
             showMenu() {
@@ -36,100 +126,494 @@
         computed: {
             text() {
                 return this.show ? '收' : '开';
+            },
+        }
+    });
+
+    Vue.component("demo2-template", {
+        template: "#demo2-temp",
+        data() {
+            return {
+                view: "v-a",
+                picked: "one"
+            };
+        },
+        components: {
+            "v-a": {
+                template: "<div>Component A</div>"
+            },
+            "v-b": {
+                template: "<div>Component B</div>"
+            },
+        },
+        methods: {
+
+        },
+        computed: {
+
+        }
+    });
+
+    Vue.component("demo3-template", {
+        template: "#demo3-temp",
+        data() {
+            return {
+                items: [
+                    { msg: 'Bruce Lee', show: false },
+                    { msg: 'Jackie Chan', show: false },
+                    { msg: 'Chuck Norris', show: false },
+                    { msg: 'Jet Li', show: false },
+                    { msg: 'Kung Fury', show: false },
+
+                ],
+                prevIndex: -1
             }
+        },
+        methods: {
+            add() {
+                //添加元素到数组中
+                this.items.push({ msg: 'Bruce Lee1', show: false });
+            },
+            deleteShow(index) {
+                var isTrue = true;
+                this.items[index].show = isTrue;
+                if (this.prevIndex > 0 || this.prevIndex == 0) {
+                    //isTrue = !isTrue;
+                    this.items[this.prevIndex].show = !isTrue;
+                }
+
+                this.prevIndex = index;
+
+
+            },
+            deleteItem(index) {
+                // this.items.remove(index);
+                //删除数组中的元素
+                this.items.splice(index, 1);
+            }
+
+
+        }
+
+    });
+
+    Vue.component("demo4-template", {
+        template: "#demo4-temp",
+        data() {
+            return { show: false }
+        },
+        methods: {
+            showball() {
+                this.show = !this.show;
+            },
+
+        }
+    })
+
+    Vue.component("demo5-template", {
+        template: "#demo5-temp",
+        data() {
+            return {
+                shells: [
+                    {
+                        show: false
+                    },
+                    {
+                        show: false
+                    },
+                    {
+                        show: false
+                    }
+                ]
+            }
+        },
+        methods: {
+            launch(event) {
+                for (let i = 0; i < this.shells.length; i++) {
+                    let shell = this.shells[i];
+                    if (!shell.show) {
+                        shell.show = true;
+                        shell.target = event.target;
+                        return;
+                    }
+                }
+            },
+            beforeEnter(el) {
+                let count = this.shells.length;
+                while (count--) {
+                    let shell = this.shells[count];
+                    if (shell.show) {
+                        let rect = shell.target.getBoundingClientRect();
+                        let left = rect.left - 32;
+                        let top = -(window.innerHeight - rect.top - 15);
+                        el.style.display = '';
+                        el.style.webkitTransform = `translate3d(0,${top}px,0)`;
+                        el.style.transform = `translate3d(0,${top}px,0)`;
+                        let inner = el.getElementsByClassName('inner5')[0];
+                        inner.style.webkitTransform = `translate3d(${left}px,0,0)`;
+                        inner.style.transform = `translate3d(${left}px,0,0)`;
+                    }
+                }
+            },
+            enter(el, done) {
+                /* eslint-disable no-unused-vars */
+                let refresh = el.offsetHeight;
+                this.$nextTick(() => {
+                    el.style.webkitTransform = 'translate3d(0,0,0)';
+                    el.style.transform = 'translate3d(0,0,0)';
+                    let inner = el.getElementsByClassName('inner5')[0];
+                    inner.style.webkitTransform = 'translate3d(0,0,0)';
+                    inner.style.transform = 'translate3d(0,0,0)';
+                });
+                done();
+            },
+            afterEnter(el) {
+                let ball = this.shells[0];
+                ball.show = false;
+                el.style.display = 'none';
+            }
+        }
+    })
+
+</script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            //show: false,
+
+        },
+        methods: {
+            // showMenu() {
+            //     this.show = !this.show;
+            // }
+        },
+        computed: {
+            // text() {
+            //     return this.show ? '收' : '开';
+            // }
         }
     });
 
 </script>
+<!--demo1 style-->
 <style>
-         .btn {
-            position: fixed;
-            bottom: 50px;
-            right: 10px;
-            z-index: 10;
-            width: 50px;
-            height: 50px;
-            line-height: 50px;
-            border-radius: 50%;
-            border: none;
-            outline: none;
-            color: #fff;
-            font-size: 18px;
-            background: blue;
-        }
-        
-        .menu {
-            position: fixed;
-            bottom: 50px;
-            right: 10px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            transition: all .7s ease-in;
-        }
-         .move-enter-active .inner {
-            transform: translate3d(0, 0, 0);
-            transition-timing-function: cubic-bezier(0, .57, .44, 1.97);
-        }
-        
-         .move-enter-active .inner-1 {
-            transition-delay: .1s;
-        }
-        
-         .move-enter-active .inner-2 {
-            transition-delay: .2s;
-        }
-        
-         .move-enter-active .inner-3 {
-            transition-delay: .3s;
-        }
-        
-        .move-enter ,.move-leave-active .inner {
-            transition-timing-function: ease-in-out;
-        }
-        
-         .move-enter, .move-leave-active .inner-1 {
-            transform: translate3d(0, 60px, 0);
-            transition-delay: .3s;
-        }
-        
-         .move-enter ,.move-leave-active .inner-2 {
-            transform: translate3d(40px, 40px, 0);
-            transition-delay: .2s;
-        }
-        
-         .move-enter , .move-leave-active .inner-3 {
-            transform: translate3d(60px, 0, 0);
-            transition-delay: .1s;
-        }
-        
-        
-        .inner {
-            display: inline-block;
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            line-height: 30px;
+  
+    .btn {
+        position: fixed;
+        bottom: 50px;
+        right: 10px;
+        z-index: 10;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        border-radius: 50%;
+        border: none;
+        outline: none;
+        color: #fff;
+        font-size: 18px;
+        background: blue;
+    }
+    
+    .menu {
+        position: fixed;
+        bottom: 50px;
+        right: 10px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        transition: all .7s ease-in;
+    }
+    
+    .move-enter-active .inner {
+        transform: translate3d(0, 0, 0);
+        transition-timing-function: cubic-bezier(0, .57, .44, 1.97);
+    }
+    
+    .move-enter-active .inner-1 {
+        transition-delay: .1s;
+    }
+    
+    .move-enter-active .inner-2 {
+        transition-delay: .5s;
+    }
+    
+    .move-enter-active .inner-3 {
+        transition-delay: .7s;
+    }
+    
+    .move-enter .inner,
+    .move-leave-active .inner {
+        transition-timing-function: ease-in-out;
+    }
+    
+    .move-enter .inner-1,
+    .move-leave-active .inner-1 {
+        transform: translate3d(0, 60px, 0);
+        transition-delay: .3s;
+    }
+    
+    .move-enter .inner-2,
+    .move-leave-active .inner-2 {
+        transform: translate3d(40px, 40px, 0);
+        transition-delay: .2s;
+    }
+    
+    .move-enter .inner-3,
+    .move-leave-active .inner-3 {
+        transform: translate3d(60px, 0, 0);
+        transition-delay: .1s;
+    }
+    
+    .inner {
+        display: inline-block;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 50%;
+        background: red;
+        text-align: center;
+        color: #fff;
+        transition: all .4s;
+    }
+    
+    .inner-1 {
+        top: -50px;
+        left: 10px;
+    }
+    
+    .inner-2 {
+        left: -30px;
+        top: -30px;
+    }
+    
+    .inner-3 {
+        left: -50px;
+        top: 10px;
+    }
+</style>
+
+<!--Demo2 style-->
+<style>
+    #movie {
+        margin-top: 25px;
+        width: 100%;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .component-fade-enter-active .conpoment-fade-leave-active {
+        opacity: 1;
+        transition: all 0.5s ease;
+    }
+    
+    .component-fade-enter,
+    .component-fade-leave-active {
+        opacity: 0;
+    }
+</style>
+<!--demo3 style-->
+<style>
+    #movie3 {
+        margin-top: 25px;
+        width: 100%;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        position: relative;
+    }
+    
+    #btn3 {
+        left: 50%;
+        margin-left: -50px;
+        position: relative;
+    }
+    
+    .deleteButton {
+        /*position: absolute;
+        width: 50px;
+        height: 30px;
+        bottom: 0;
+        left: 300px;*/
+        flex: 0 0 60px;
+        border: none;
+        outline: none;
+        color: #fff;
+        background: red;
+        transition: all .4s;
+        margin-left: 400px;
+    }
+    
+    .list-item {
+        display: flex;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        margin-bottom: 10px;
+        color: #666;
+        font-size: 14px;
+        background: #eee;
+        transition: all .4s;
+        /*position: relative;
+        display: block;
+        width: 300px;
+        height: 30px;
+        margin: 5px 40px;
+        background: lightgrey;
+        transition: all 0.5s linear;*/
+    }
+    /*进入的初始状态*/
+    
+    .list-enter,
+    .list-leave-active {
+        opacity: 0;
+        transform: translateX(-300px);
+    }
+    /*列表平滑过渡*/
+    /*离开的状态*/
+    
+    .list-leave-active {
+        transform: translateX(-300px);
+        position: absolute
+    }
+    
+    .move3-enter,
+    .move3-leave-active {
+        transform: translate3d(50px, 0, 0);
+        opacity: 0;
+    }
+    
+    .move3-enter-active,
+    .move3-leave-active {
+        opacity: 1;
+        transition: all 0.2s linear;
+    }
+</style>
+<!--demo4 style-->
+<style>
+    @keyframes shape-change {
+        0%,
+        100% {
             border-radius: 50%;
             background: red;
-            text-align: center;
-            color: #fff;
-            transition: all .4s;
         }
-        
-        .inner-1 {
-            top: -50px;
-            left: 10px;
+        50% {
+            border-radius: 0;
+            background: blue;
         }
-        
-        .inner-2 {
-            left: -30px;
-            top: -30px;
+    }
+    
+    @keyframes moveball-in {
+        0% {
+            transform: translate3d(300px, -200px, 0)
         }
-        
-        .inner-3 {
-            left: -50px;
-            top: 10px;
+        50% {
+            transform: translate3d(100px, -400px, 0)
         }
-    </style>
+        100% {
+            transform: translate3d(0, 0, 0)
+        }
+    }
+    
+    @keyframes moveball-out {
+        0% {
+            transform: translate3d(0, 0, 0)
+        }
+        50% {
+            transform: translate3d(100px, -400px, 0)
+        }
+        100% {
+            transform: translate3d(300px, -200px, 0)
+        }
+    }
+    
+    .app .btn4 {
+        width: 40px;
+        height: 30px;
+        margin-top: 40px;
+        border: none;
+        outline: none;
+        background: red;
+        color: #fff;
+    }
+    
+    .ball {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        width: 50px;
+        height: 50px;
+        transition: all 1s cubic-bezier(.22, -0.86, .97, .58);
+    }
+    
+    .move4-enter-active {
+        opacity: 1;
+        animation: moveball-in 1s;
+    }
+    
+    .move4-enter-active .inner {
+        animation: shape-change 1s;
+    }
+    
+    .move4-leave-active {
+        opacity: 0.8;
+        animation: moveball-out 1s;
+    }
+    
+    .move4-leave-active .inner {
+        animation: shape-change 1s
+    }
+    
+    .inner {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: red;
+        transition: all 1s linear;
+    }
+</style>
+
+<!--demo5 style-->
+<style>
+    .app5 {
+        margin-top: 50px;
+        width: 100%;
+        height: 100px;
+        background-color: red;
+    }
+    
+    .gun {
+        position: absolute;
+        /*bottom: 15%;*/
+        right: 10px;
+        z-index: 10;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        border-radius: 50%;
+        border: none;
+        outline: none;
+        color: #fff;
+        font-size: 18px;
+        background: blue;
+        float:left;
+    }
+    
+    .inner5 {
+        position: absolute;
+        bottom: 15%;
+        width: 100px;
+        height: 100px;
+        border-top-right-radius: 50%;
+        background: blue;
+    }
+</style>
+
+
 </html>
